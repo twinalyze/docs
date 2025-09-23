@@ -24,7 +24,7 @@
 
 #footer div:nth-child(2) {
   display: none !important;
-  }
+}
 
 .sdk-table,
 .event-table,
@@ -91,6 +91,7 @@ code {
   --tw-text-opacity: 1;
   color: #346DDB;
 }
+
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: #346DDB;
@@ -100,7 +101,7 @@ code {
   background-color: #e9f3ff;
 }
 
-.bg-primary-dark{
+.bg-primary-dark {
   background-color: #346DDB;
   color: #505452;
 }
@@ -111,11 +112,22 @@ code {
 }
 
 .dark\:text-primary-light:is(.dark *) {
-    --tw-text-opacity: 1;
-    color: #346DDB;
+  --tw-text-opacity: 1;
+  color: #346DDB;
 }
 
 html:not(.dark) .codeblock-light pre.shiki>code {
   padding: 7px;
-      background-color: #F9FAFB;
+  background-color: #F9FAFB;
+}
+
+tbody tr:hover {
+  background-color: #f0f2f6;
+  /* hover color */
+  cursor: pointer;
+  /* optional */
+}
+
+.dark tbody tr:hover {
+  background-color:#2f3031;
 }
