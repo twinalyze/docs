@@ -1,0 +1,319 @@
+---
+title: "Ad Event Tracking"
+description: "Track detailed ad lifecycle events such as request, load, show, click, failure, and revenue. These events help measure ad performance and optimize monetization across different ad networks."
+---
+
+#### Ad Event Parameters <br/>
+
+<table class="ad-event-table">
+  <thead>
+    <tr>
+      <th>Parameters</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`AdsCompany`</td>
+      <td>Ad network</td>
+      <td class="third">
+        <div>`AdsCompany.Admob`</div>
+        <div>`AdsCompany.Adx`</div>
+        <div>`AdsCompany.Facebook`</div>
+      </td>
+    </tr>
+    <tr>
+      <td>`AdsType`</td>
+      <td>Ad format</td>
+      <td class="third">
+        <div>
+         <div>`AdsType.Interstitial`</div>
+         <div>`AdsType.AppOpen`</div>
+        </div>
+        <div>`AdsType.Native`</div>
+        <div> 
+           <div>`AdsType.Banner`</div>
+           <div>`AdsType.Mrc`</div>
+         </div>
+         etc.
+      </td>
+    </tr>
+    <tr>
+      <td>`AdsAction`</td>
+      <td>What happened with the ad</td>
+      <td class="third">
+      <div>
+         <div>`AdsAction.Request`</div>
+         <div>`AdsAction.Loaded`</div>
+         <div>`AdsAction.Show`</div>
+        </div>
+        <div>`AdsAction.Failed`</div>
+        <div> 
+           <div>`AdsAction.FailedOther`</div>
+           <div>`AdsAction.Click`</div>
+         </div>
+      
+      </td>
+    </tr>
+    <tr>
+      <td>`context`</td>
+      <td>Your activity class</td>
+      <td>`"com.analytics.test.MainActivity"`</td>
+    </tr>
+    <tr>
+      <td>`adId`</td>
+      <td>Your ad unit ID</td>
+      <td>`"ca-app-pub-3940256099942544/9214589741"`</td>
+    </tr>
+    <tr>
+      <td>`uniqId`</td>
+      <td>Unique identifier per ad event</td>
+      <td>`System.currentTimeMillis()`</td>
+    </tr>
+  </tbody>
+</table>
+
+#### How to Send an Ad Event
+
+
+1. **Ad Request**  
+   When an ad fetch is initiated.
+
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.getInstance()
+    .setAdsRequestEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Request,
+        context,
+        adId,
+        uniqId
+    )
+```
+
+```javascript Java
+Analytics.getInstance()
+    .setAdsRequestEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Request,
+        context,
+        adId,
+        uniqId
+    );
+```
+
+</CodeGroup>
+
+2. **Ad Load**  
+   When the ad successfully loads.
+   
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.getInstance()
+    .setAdsLoadEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Loaded,
+        context,
+        adId,
+        uniqId
+    )
+```
+
+```javascript Java
+Analytics.getInstance()
+    .setAdsLoadEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Loaded,
+        context,
+        adId,
+        uniqId
+    );
+```
+
+</CodeGroup>
+
+3. **Ad Failed**  
+   Captures load/show errors with error codes and messages.
+
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.getInstance()
+    .setAdsFailedEvent(
+            AdsCompany.Admob,
+            AdsType.Interstitial, 
+            AdsAction.Failed,
+            context,
+            adId,
+            uniqId,
+            null,
+            loadAdError == null ? Constant.not_found : String.valueOf(loadAdError.getCode()),
+            loadAdError.getMessage() == null ? Constant.not_found : loadAdError.getMessage()
+        )
+```
+
+```javascript Java
+Analytics.getInstance()
+    .setAdsFailedEvent(
+            AdsCompany.Admob,
+            AdsType.Interstitial, 
+            AdsAction.Failed,
+            context,
+            adId,
+            uniqId,
+            null,
+            loadAdError == null ? Constant.not_found : String.valueOf(loadAdError.getCode()),
+            loadAdError.getMessage() == null ? Constant.not_found : loadAdError.getMessage()
+        );
+```
+
+</CodeGroup>
+   
+
+4. **Ad Failed Other**  
+   Captures load/show errors with error codes and messages. As an example: onAdFailedToShowFullScreenContent.
+
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.getInstance()
+    .setAdsFailedEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.FailedOther,
+        context,adManagerInterstitialAd.getAdUnitId() == null ?
+        Constant.not_found : adManagerInterstitialAd.getAdUnitId(),
+        uniqId, null,
+        String.valueOf(adError.getCode()),
+        adError.getMessage()
+    )
+```
+
+```javascript Java
+Analytics.getInstance()
+    .setAdsFailedEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.FailedOther,
+        context,adManagerInterstitialAd.getAdUnitId() == null ?
+        Constant.not_found : adManagerInterstitialAd.getAdUnitId(),
+        uniqId, null,
+        String.valueOf(adError.getCode()),
+        adError.getMessage()
+    );
+```
+
+</CodeGroup>
+
+
+5. **Ad Show**  
+  When the ad is displayed.
+
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.getInstance()
+    .setAdsImpressionEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Show,
+        context,
+        adManagerInterstitialAd.getAdUnitId(),
+        uniqId,
+        null
+    )
+```
+
+```javascript Java
+Analytics.getInstance()
+    .setAdsImpressionEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Show,
+        context,
+        adManagerInterstitialAd.getAdUnitId(),
+        uniqId,
+        null
+    );
+```
+
+</CodeGroup>
+
+
+6. **Ad Click**  
+   Tracks user clicks on the ad.
+  
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.getInstance()
+    .setAdsClickEvevnt(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Click,
+        context,
+        adManagerInterstitialAd.getAdUnitId(),
+        uniqId,
+        null
+    )
+```
+
+```javascript Java
+Analytics.getInstance()
+    .setAdsClickEvevnt(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        AdsAction.Click,
+        context,
+        adManagerInterstitialAd.getAdUnitId(),
+        uniqId,
+        null
+    );
+```
+
+</CodeGroup>
+
+
+7. **Ad Paid Event**  
+   Records revenue data only uses AdMob (micros, currency, precision).
+
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.getInstance()
+    .setAdsPaidEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        context,
+        adManagerInterstitialAd.getAdUnitId(),
+        uniqId,
+        null,
+        adValue.getCurrencyCode(),
+        String.valueOf(adValue.getPrecisionType()),
+        String.valueOf(adValue.getValueMicros())
+    )
+```
+
+```javascript Java
+Analytics.getInstance()
+    .setAdsPaidEvent(
+        AdsCompany.Admob,
+        AdsType.Interstitial,
+        context,
+        adManagerInterstitialAd.getAdUnitId(),
+        uniqId,
+        null,
+        adValue.getCurrencyCode(),
+        String.valueOf(adValue.getPrecisionType()),
+        String.valueOf(adValue.getValueMicros())
+    );
+```
+
+</CodeGroup>

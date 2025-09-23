@@ -1,0 +1,115 @@
+---
+title: "Ad SDK Initialization"
+description: "Set up the Ad SDK by adding the dependency and initializing it in your Application class to start capturing ad-related insights."
+---
+
+
+1. **Add the Ad SDK Dependency**
+
+Add the following dependency to your app-level `build.gradle` file
+
+<CodeGroup>
+
+```javascript Kotlin
+implementation("io.github.twinnettechnologies:twinnet-analytics:1.0.1");
+```
+
+```javascript Java
+implementation "io.github.twinnettechnologies:twinnet-analytics:1.0.1"
+```
+
+</CodeGroup>
+
+> 📝 **Note**: <br/>
+If you're using the **Ad Analytics SDK**, you **do not need to add the Analytics SDK dependency separately**.  The Ad SDK already includes all analytics features and events, and insights.
+However, you **must initialize the SDK** in your `Application` class.
+
+2. **Initializing Analytics SDK in Android**
+
+Initialize the **SDK** in your `Application` class to start tracking sessions, events, and insights.
+
+<CodeGroup>
+
+```javascript Kotlin
+Analytics.Companion.initialize(
+    application = this,
+    apiKey = "YOUR_API_KEY",
+    orgId = "YOUR_ORG_ID"
+)
+```
+
+```javascript Java
+Analytics.Companion.initialize(
+    application = this,
+    apiKey = "YOUR_API_KEY",
+    orgId = "YOUR_ORG_ID"
+)
+```
+
+</CodeGroup>
+
+<Accordion title="Parameter Reference">
+
+<table class="event-table">
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`application`</td>
+      <td>Android application context</td>
+    </tr>
+    <tr>
+      <td>`apiKey`</td>
+      <td>Your Project API key</td>
+    </tr>
+    <tr>
+      <td>`orgId`</td>
+      <td>Your organization ID (e.g. `twinnet_demo`)</td>
+    </tr>
+  </tbody>
+</table>
+ 
+</Accordion>
+
+
+---
+
+>✅ Best Practice <br/>
+Always call `initialize()` inside your `Application` class not inside. an Activity to ensure complete session tracking.
+
+
+<CodeGroup>
+
+```javascript Kotlin
+class MyApp: Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Analytics.initialize(
+            this,
+            "YOUR_API_KEY",
+            "YOUR_ORG_ID"
+        )
+    }
+}
+```
+
+```javascript Java
+class MyApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Analytics.Companion.initialize(
+            this,
+            "YOUR_API_KEY",
+            "YOUR_ORG_ID”
+        )
+    }
+}
+```
+
+</CodeGroup>
+
+---
