@@ -131,3 +131,8 @@ tbody tr:hover {
 .dark tbody tr:hover {
   background-color:#2f3031;
 }
+
+.dark code {
+    background: #222223;
+  border: none;
+}
